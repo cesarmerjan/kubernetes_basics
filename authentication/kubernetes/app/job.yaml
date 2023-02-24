@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-user
+  namespace: backend
+spec:
+  completions: 1
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      containers:
+        - name: create-user-container
+          image: authentication:0.0.1
+          command:
+            ["flask", "user", "create", "Admin", "admin@gmail.com", "admin"]
+      restartPolicy: Never

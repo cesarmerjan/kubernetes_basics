@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server-deploy
+  namespace: frontend
+spec:
+  selector:
+    matchLabels:
+      app: web-server-pod
+
+  template:
+    metadata:
+      labels:
+        app: web-server-pod
+
+    spec:
+      containers:
+        - name: web-server-container
+          image: web-server:0.0.1
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "300m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80

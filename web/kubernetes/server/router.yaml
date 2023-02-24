@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentication-service
+  namespace: frontend
+spec:
+  type: ExternalName
+  externalName: authentication-service.backend.svc.cluster.local
