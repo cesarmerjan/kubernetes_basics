@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication-database-deploy
+  namespace: backend
+
+spec:
+  selector:
+    matchLabels:
+      app: authentication-database-pod
+
+  template:
+    metadata:
+      labels:
+        app: authentication-database-pod
+
+    spec:
+      volumes:
+        - name: storage
+          emptyDir: {}
+
+      containers:
+        - name: authentication-database-container
+          image: postgres
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "256Mi"
+              cpu: "1000m"
+          ports:
+            - containerPort: 5432
+
+          envFrom:
+            - configMapRef:
+                name: database-configmap
+
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql/data"
+              name: storage
+
+  replicas: 1
