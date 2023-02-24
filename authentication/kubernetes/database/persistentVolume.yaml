@@ -8,8 +8,8 @@ spec:
     storage: 10Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: slow
   hostPath:
-    path: "/authentication-database"
+    path: "/var/lib/data"
