@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: create-user-container
-          image: authentication:0.0.1
+          image: cesarmerjan/authentication:0.0.1
           command:
             ["flask", "user", "create", "Admin", "admin@gmail.com", "admin"]
       restartPolicy: Never
