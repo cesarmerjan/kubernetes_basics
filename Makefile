@@ -1,11 +1,27 @@
-.PHONY: backend-network
-backend-network:
-	docker network create -d bridge backend
+.PHONY: backend
+backend:
+	kubectl create -f authentication/kubernetes/namespace.yaml
 
-.PHONY: frontend-network
-frontend-network:
-	docker network create -d bridge frontend
+	kubectl create -f authentication/kubernetes/database/configmap.yaml
+	kubectl create -f authentication/kubernetes/database/service.yaml
+	kubectl create -f authentication/kubernetes/database/deploy.yaml
 
-.PHONY: web-server
-web-server:
-	minikube service --url --namespace=frontend web-server-service
+	kubectl create -f authentication/kubernetes/app/service.yaml
+	kubectl create -f authentication/kubernetes/app/job.yaml
+	kubectl create -f authentication/kubernetes/app/deploy.yaml
+
+.PHONY: frontend
+frontend:
+	kubectl create -f web/kubernetes/namespace.yaml
+
+	kubectl create -f web/kubernetes/server/service.yaml
+	kubectl create -f web/kubernetes/server/router.yaml
+	kubectl create -f web/kubernetes/server/deploy.yaml
+
+.PHONY: deploy
+deploy: backend frontend
+
+.PHONY: clean
+clean:
+	kubectl delete namespace frontend
+	kubectl delete namespace backend
