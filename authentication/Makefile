@@ -5,6 +5,10 @@ CONTAINER=${SERVICE}-container
 PORT=5000
 DOCKERHUB_USERNAME=cesarmerjan
 
+.PHONY: backend-network
+backend-network:
+	docker network create -d bridge backend
+
 .PHONY: build
 build:
 	docker build . -t ${DOCKERHUB_USERNAME}/${IMAGE}

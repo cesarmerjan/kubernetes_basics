@@ -5,6 +5,11 @@ CONTAINER=${SERVICE}-container
 PORT=80
 DOCKERHUB_USERNAME=cesarmerjan
 
+.PHONY: frontend-network
+frontend-network:
+	docker network create -d bridge frontend
+
+
 .PHONY: build
 build:
 	docker build . -t ${DOCKERHUB_USERNAME}/${IMAGE}
@@ -37,8 +42,12 @@ debug:
 	kubectl run -it --image debian --namespace=frontend debug
 
 
-
 .PHONY: push-image
 push-image:
 	docker push ${DOCKERHUB_USERNAME}/${IMAGE}
+
+
+.PHONY: web-server-url
+web-server-url:
+	minikube service --url --namespace=frontend web-server-service
 	
