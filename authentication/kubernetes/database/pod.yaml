@@ -6,10 +6,14 @@ metadata:
   labels:
     app: authentication-database-app
 spec:
+  # volumes:
+  #   - name: storage
+  #     persistentVolumeClaim:
+  #       claimName: authentication-database-volume-claim
+
   volumes:
     - name: storage
-      persistentVolumeClaim:
-        claimName: authentication-database-volume-claim
+      emptyDir: {}
 
   containers:
     - name: authentication-database-container
