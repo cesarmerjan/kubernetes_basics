@@ -3,11 +3,11 @@ TAG=0.0.1
 IMAGE=${SERVICE}:${TAG}
 CONTAINER=${SERVICE}-container
 PORT=80
-
+DOCKERHUB_USERNAME=cesarmerjan
 
 .PHONY: build
 build:
-	docker build . -t ${IMAGE}
+	docker build . -t ${DOCKERHUB_USERNAME}/${IMAGE}
 
 .PHONY: container
 container:
@@ -35,3 +35,10 @@ logs:
 .PHONY: debug
 debug:
 	kubectl run -it --image debian --namespace=frontend debug
+
+
+
+.PHONY: push-image
+push-image:
+	docker push ${DOCKERHUB_USERNAME}/${IMAGE}
+	

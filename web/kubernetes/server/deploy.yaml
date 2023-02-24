@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: web-server-container
-          image: web-server:0.0.1
+          image: cesarmerjan/web-server:0.0.1
           resources:
             requests:
               memory: "64Mi"
