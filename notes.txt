@@ -1,0 +1,7 @@
+https://adamtheautomator.com/postgres-to-kubernetes/
+
+
+curl -X POST http://authentication-service:5000/login -H 'Content-Type: application/json' -d '{"email": "admin@gmail.com", "password": "admin"}'
+psql -h authentication-database-service -p 5432 -U user -d authentication
+
+

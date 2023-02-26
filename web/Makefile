@@ -1,5 +1,5 @@
 SERVICE=web-server
-TAG=0.0.1
+TAG=0.0.3
 IMAGE=${SERVICE}:${TAG}
 CONTAINER=${SERVICE}-container
 PORT=80
@@ -12,7 +12,7 @@ frontend-network:
 
 .PHONY: build
 build:
-	docker build . -t ${DOCKERHUB_USERNAME}/${IMAGE}
+	docker build -t ${DOCKERHUB_USERNAME}/${IMAGE} -t ${DOCKERHUB_USERNAME}/${SERVICE}:latest .
 
 .PHONY: container
 container:
@@ -45,6 +45,7 @@ debug:
 .PHONY: push-image
 push-image:
 	docker push ${DOCKERHUB_USERNAME}/${IMAGE}
+	docker push ${DOCKERHUB_USERNAME}/${SERVICE}:latest
 
 
 .PHONY: web-server-url
